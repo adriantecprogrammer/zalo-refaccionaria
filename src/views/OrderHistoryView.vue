@@ -179,7 +179,7 @@ const closeDetailsSaleModal = () => {
                   <td class="px-6 py-4">{{ order.total }}</td>
                   <button
                     @click="showDetailsSaleModal(order)"
-                    class="boton_detalle px-2 py-2 mt-2 mb-2 text-white bg-primary-900 hover:bg-primary-1000 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm text-nowrap text-center"
+                    class="boton_detalle px-2 py-2 mt-2 mb-2 text-white bg-primary-900 hover:bg-primary-3000 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm text-nowrap text-center"
                   >
                     Ver Detalles
                   </button>

@@ -156,7 +156,7 @@ onMounted(() => {});
               <button
                 type="button"
                 @click="addProductCart"
-                class="text-white bg-primary-900 hover:bg-primary-1000 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                class="text-white bg-primary-900 hover:bg-primary-3000 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
               >
                 <!-- Icono Play SVG -->
                 <svg
