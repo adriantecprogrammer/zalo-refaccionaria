@@ -1,14 +1,14 @@
-import { ref, computed } from 'vue';
-import { defineStore } from 'pinia';
+import { ref, computed } from "vue";
+import { defineStore } from "pinia";
 
-type NotificationType = 'success' | 'error' | 'warning';
+type NotificationType = "success" | "error" | "warning";
 
 interface Notification {
   message: string;
   type: NotificationType;
 }
 
-const STORE_NAME = 'notification';
+const STORE_NAME = "notification";
 
 export const useNotificationStore = defineStore(STORE_NAME, () => {
   const notification = ref<Notification | null>(null);
@@ -31,7 +31,7 @@ export const useNotificationStore = defineStore(STORE_NAME, () => {
 
   function showNotification(message: string, type: NotificationType) {
     clearTimeouts();
-    
+
     notification.value = { message, type };
     isVisible.value = true;
 
@@ -42,7 +42,7 @@ export const useNotificationStore = defineStore(STORE_NAME, () => {
 
   function hideNotification() {
     clearTimeouts();
-    
+
     isVisible.value = false;
     removeTimeoutId = setTimeout(() => {
       notification.value = null;

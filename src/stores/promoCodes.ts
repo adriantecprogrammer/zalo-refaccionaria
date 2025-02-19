@@ -6,7 +6,6 @@ import apiPromoCodes from "@/api/apiPromoCodes";
 
 const STORE_NAME = "promoCodes";
 
-
 export const usePromoCodesStore = defineStore(STORE_NAME, () => {
   const userStore = useUserStore();
   const codes = ref<IPromoCodes[] | null>([]);
@@ -31,22 +30,23 @@ export const usePromoCodesStore = defineStore(STORE_NAME, () => {
   const savePromoCodesLocalStorage = () => {
     storePromoCodes.value = localStorage.setItem(
       getPromoCodeStorageKey(),
-      JSON.stringify(codes.value)
+      JSON.stringify(codes.value),
     );
   };
 
-  const getStorePromoCodes=()=>{
+  const getStorePromoCodes = () => {
     storePromoCodes.value = localStorage.getItem(getPromoCodeStorageKey());
-    discountCodes.value= storePromoCodes.value ? JSON.parse(storePromoCodes.value) : []
-    console.log(discountCodes.value)
-    
-  }
- 
+    discountCodes.value = storePromoCodes.value
+      ? JSON.parse(storePromoCodes.value)
+      : [];
+    console.log(discountCodes.value);
+  };
+
   return {
     getPromoCodes,
     codes,
     storePromoCodes,
     getStorePromoCodes,
-    discountCodes
+    discountCodes,
   };
 });

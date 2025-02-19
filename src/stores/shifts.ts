@@ -3,10 +3,7 @@ import { computed, ref } from "vue";
 import apiClient from "@/api/apiClient";
 import { useUserStore } from "@/stores/user";
 import { useNotificationStore } from "@/stores/notification";
-import {
-  type IOrderShift,
-  type IShift,
-} from "@/types";
+import { type IOrderShift, type IShift } from "@/types";
 
 export const useShiftsStore = defineStore("shiftsStore", () => {
   const $userStore = useUserStore();
@@ -63,7 +60,7 @@ export const useShiftsStore = defineStore("shiftsStore", () => {
     } catch (error) {
       $notificationStore.showNotification(
         "Error al abrir un nuevo corte",
-        "error"
+        "error",
       );
       console.error("Error al registrar un nuevo corte:", error);
     } finally {
@@ -84,7 +81,7 @@ export const useShiftsStore = defineStore("shiftsStore", () => {
       await apiClient.post("/shifts/close", payload);
       $notificationStore.showNotification(
         "Turno cerrado correctamente",
-        "success"
+        "success",
       );
 
       resetShiftData();
@@ -112,16 +109,16 @@ export const useShiftsStore = defineStore("shiftsStore", () => {
       console.log(response.data);
       shiftSales.value = response.data;
       shiftSales.value.totalSalesInShift = Number(
-        shiftSales.value.totalSalesInShift
+        shiftSales.value.totalSalesInShift,
       );
 
-      if (shiftSales.value.totalPhysicalAmount > 0 ) {
+      if (shiftSales.value.totalPhysicalAmount > 0) {
         totalSales.value = shiftSales.value.totalPhysicalAmount;
       } else {
         totalSales.value = 0;
       }
 
-      if(shiftSales.value.totalElectronicAmount > 0) {
+      if (shiftSales.value.totalElectronicAmount > 0) {
         totalElectronicSales.value = shiftSales.value.totalElectronicAmount;
       } else {
         totalElectronicSales.value = 0;
@@ -131,7 +128,7 @@ export const useShiftsStore = defineStore("shiftsStore", () => {
     } catch (error) {
       $notificationStore.showNotification(
         "Error al obtener las ventas",
-        "error"
+        "error",
       );
       console.error("Error al obtener las ventas", error);
     } finally {

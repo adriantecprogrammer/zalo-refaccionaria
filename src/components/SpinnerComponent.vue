@@ -1,20 +1,16 @@
 <script setup lang="ts">
-
 defineProps({
   show: {
     type: Boolean,
     required: true,
   },
 });
-
 </script>
 <template>
   <div v-if="show" class="spinner-overlay">
     <div class="spinner"></div>
   </div>
 </template>
-
-
 
 <style scoped>
 .spinner-overlay {
@@ -39,9 +35,15 @@ defineProps({
 }
 
 @-webkit-keyframes sk-rotateplane {
-  0% { -webkit-transform: perspective(120px) }
-  50% { -webkit-transform: perspective(120px) rotateY(180deg) }
-  100% { -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg) }
+  0% {
+    -webkit-transform: perspective(120px);
+  }
+  50% {
+    -webkit-transform: perspective(120px) rotateY(180deg);
+  }
+  100% {
+    -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg);
+  }
 }
 
 @keyframes sk-rotateplane {

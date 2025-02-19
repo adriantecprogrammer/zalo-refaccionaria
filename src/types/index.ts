@@ -11,35 +11,32 @@ export interface Product {
   storehouseId: number;
 }
 
-export interface OrderDetail{
-  id:          number;
-  orderId:     number;
-  productId:   number;
+export interface OrderDetail {
+  id: number;
+  orderId: number;
+  productId: number;
   productName: string;
-  quantity:    number;
-  unitPrice:   number;
-  discount:    number;
+  quantity: number;
+  unitPrice: number;
+  discount: number;
 }
-
 
 export interface CartItem extends Product {
   quantity: number;
   discount: number;
 }
 
-export interface SailInProcess { 
-  id:number
-  createdAt:Date
+export interface SailInProcess {
+  id: number;
+  createdAt: Date;
   cartInfo: CartInfo;
 }
 
 export interface CartInfo {
-  
-  string:    string;
-  json:      string;
-  pass:      number;
+  string: string;
+  json: string;
+  pass: number;
 }
-
 
 export enum PaymentMethodId {
   Cash = "cash",
@@ -76,7 +73,7 @@ export interface User {
   id: number;
   name: string;
   email: string;
-  pin:string
+  pin: string;
 }
 
 export interface NewOrder {
@@ -87,10 +84,10 @@ export interface NewOrder {
   paymentMethod: string;
   discount: number;
   cashReceived: number;
-  physicalAmount:number;
-  electronicAmount:number;
+  physicalAmount: number;
+  electronicAmount: number;
   commission: number;
-  products: { id: number, name:string, quantity: number, discount: number }[];
+  products: { id: number; name: string; quantity: number; discount: number }[];
   shiftId: number | null;
 }
 
@@ -122,8 +119,8 @@ export interface IOrderShift {
   numberOfSalesInShift: number;
   shiftId: number;
   totalSalesInShift: number;
-  totalPhysicalAmount:number,
-  totalElectronicAmount:number,
+  totalPhysicalAmount: number;
+  totalElectronicAmount: number;
   sales: ISalesOrder[];
 }
 
@@ -146,10 +143,9 @@ export interface ITransferHistory {
   updatedAt: string;
 }
 
-
 export interface IPromoCodes {
-  id:       number;
-  code:     string;
+  id: number;
+  code: string;
   discount: number;
   isActive: number;
 }

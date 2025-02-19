@@ -10,7 +10,9 @@
       <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow">
         <!-- Modal header -->
-        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+        <div
+          class="flex items-center justify-between p-4 md:p-5 border-b rounded-t"
+        >
           <h3 class="text-xl font-semibold text-gray-900">
             Confirmación de Traslado de Productos
           </h3>
@@ -40,11 +42,15 @@
         <!-- Modal body -->
         <div class="p-4 md:p-5 space-y-4">
           <p class="text-base leading-relaxed text-gray-500">
-            Parece que estás a punto de trasladar <strong>{{ quantity }}</strong> productos. Por favor, revisa y confirma que la ubicación de origen y destino son correctas.
+            Parece que estás a punto de trasladar
+            <strong>{{ quantity }}</strong> productos. Por favor, revisa y
+            confirma que la ubicación de origen y destino son correctas.
           </p>
         </div>
         <!-- Modal footer -->
-        <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
+        <div
+          class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b"
+        >
           <button
             @click="confirm"
             type="button"
@@ -66,14 +72,13 @@
 </template>
 
 <script setup lang="ts">
-
 defineProps({
   visible: Boolean,
   quantity: Number,
 });
 
-const emit = defineEmits(['close', 'confirm']);
+const emit = defineEmits(["close", "confirm"]);
 
-const cancel = () => emit('close');
-const confirm = () => emit('confirm');
+const cancel = () => emit("close");
+const confirm = () => emit("confirm");
 </script>

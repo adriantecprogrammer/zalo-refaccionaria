@@ -13,7 +13,7 @@ export const useCartStore = defineStore(STORE_NAME, () => {
   const userStore = useUserStore();
   const orderStore = useOrderStore();
   const storedCart = ref();
-  const userPin=ref<string>("")
+  const userPin = ref<string>("");
 
   const getCartStorageKey = () => {
     const currentUser = userStore.user;
@@ -22,7 +22,7 @@ export const useCartStore = defineStore(STORE_NAME, () => {
 
   storedCart.value = localStorage.getItem(getCartStorageKey());
   const cart = ref<CartItem[]>(
-    storedCart.value ? JSON.parse(storedCart.value) : []
+    storedCart.value ? JSON.parse(storedCart.value) : [],
   );
 
   const emptyCart = computed<boolean>(() => cart.value.length === 0);
@@ -34,7 +34,7 @@ export const useCartStore = defineStore(STORE_NAME, () => {
     return Number(total.toFixed(2));
   });
   const totalQuantity = computed<number>(() =>
-    cart.value.reduce((acc, item) => acc + item.quantity, 0)
+    cart.value.reduce((acc, item) => acc + item.quantity, 0),
   );
 
   watch(
@@ -42,10 +42,10 @@ export const useCartStore = defineStore(STORE_NAME, () => {
     (newCart) => {
       storedCart.value = localStorage.setItem(
         getCartStorageKey(),
-        JSON.stringify(newCart)
+        JSON.stringify(newCart),
       );
     },
-    { deep: true }
+    { deep: true },
   );
 
   watch(
@@ -53,7 +53,7 @@ export const useCartStore = defineStore(STORE_NAME, () => {
     () => {
       storedCart.value = localStorage.getItem(getCartStorageKey());
     },
-    { deep: true }
+    { deep: true },
   );
 
   function addToCart(product: Product) {
@@ -63,7 +63,7 @@ export const useCartStore = defineStore(STORE_NAME, () => {
     }
 
     const itemInCart = cart.value.find(
-      (item) => item.barcode === product.barcode
+      (item) => item.barcode === product.barcode,
     );
 
     if (itemInCart) {
@@ -84,7 +84,7 @@ export const useCartStore = defineStore(STORE_NAME, () => {
     }
 
     const itemInCart = cart.value.find(
-      (item) => item.barcode === product.barcode
+      (item) => item.barcode === product.barcode,
     );
 
     if (itemInCart) {
@@ -109,7 +109,7 @@ export const useCartStore = defineStore(STORE_NAME, () => {
   }
 
   async function postSaleInProcess(
-    cart: string | null
+    cart: string | null,
   ): Promise<{ success: boolean; data: Product[] }> {
     const body = {
       string: cart,
@@ -149,7 +149,7 @@ export const useCartStore = defineStore(STORE_NAME, () => {
 
   function increaseQuantity(product: Product) {
     const itemInCart = cart.value.find(
-      (item) => item.barcode === product.barcode
+      (item) => item.barcode === product.barcode,
     );
 
     if (itemInCart && itemInCart.quantity < product.stockQuantity) {
@@ -161,14 +161,14 @@ export const useCartStore = defineStore(STORE_NAME, () => {
 
   function decreaseQuantity(product: Product) {
     const itemInCart = cart.value.find(
-      (item) => item.barcode === product.barcode
+      (item) => item.barcode === product.barcode,
     );
 
     if (itemInCart && itemInCart.quantity > 0) {
       itemInCart.quantity--;
       if (itemInCart.quantity === 0) {
         const index = cart.value.findIndex(
-          (item) => item.barcode === product.barcode
+          (item) => item.barcode === product.barcode,
         );
         cart.value.splice(index, 1);
       }
@@ -176,7 +176,7 @@ export const useCartStore = defineStore(STORE_NAME, () => {
   }
   function setDiscountPrice(product: Product, newPrice: number) {
     const newProduct = cart.value.find(
-      (item) => item.barcode === product.barcode
+      (item) => item.barcode === product.barcode,
     );
 
     if (newProduct) {
@@ -186,7 +186,7 @@ export const useCartStore = defineStore(STORE_NAME, () => {
 
   function deleteItem(product: Product) {
     const index = cart.value.findIndex(
-      (item) => item.barcode === product.barcode
+      (item) => item.barcode === product.barcode,
     );
     cart.value.splice(index, 1);
   }
@@ -207,7 +207,7 @@ export const useCartStore = defineStore(STORE_NAME, () => {
     () => {
       const storedCart = localStorage.getItem(getCartStorageKey());
       cart.value = storedCart ? JSON.parse(storedCart) : [];
-    }
+    },
   );
 
   async function checkout(
@@ -217,7 +217,7 @@ export const useCartStore = defineStore(STORE_NAME, () => {
     status: string,
     cashReceived: number,
     amountToPay: number,
-    commission: number
+    commission: number,
   ) {
     if (emptyCart.value) {
       $notificationStore.showNotification("El carrito está vacío", "error");
@@ -236,17 +236,17 @@ export const useCartStore = defineStore(STORE_NAME, () => {
         amountToPay,
         amountToPay,
         commission,
-        cart.value
+        cart.value,
       );
       $notificationStore.showNotification(
         "Orden registrada con éxito",
-        "success"
+        "success",
       );
       clearCart();
     } catch (error) {
       $notificationStore.showNotification(
         "Error al registrar la orden",
-        "error"
+        "error",
       );
     }
   }

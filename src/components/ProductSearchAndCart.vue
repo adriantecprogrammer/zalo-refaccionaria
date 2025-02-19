@@ -34,7 +34,10 @@ const emit = defineEmits<Emits>();
  * ------------------------------------------
  */
 const search = ref<string>("");
-const sortFilters = ref<{ stock: boolean; az: boolean }>({ stock: false, az: false });
+const sortFilters = ref<{ stock: boolean; az: boolean }>({
+  stock: false,
+  az: false,
+});
 
 watch(search, (newSearch) => {
   $productStore.searchQuery = newSearch;
@@ -59,31 +62,37 @@ const filterProducts = computed(() => {
 });
 
 const handleKeyDown = async (event: KeyboardEvent) => {
-  if (event.key === 'Enter') {
+  if (event.key === "Enter") {
     const found = await $productStore.searchProductByBarcode(search.value);
-    search.value = '';
+    search.value = "";
     if (found) {
-      emit('close');
+      emit("close");
     }
-  } else if (event.key === 'Tab') {
+  } else if (event.key === "Tab") {
     event.preventDefault();
     await $productStore.searchProductsByName(search.value);
-    search.value = '';
+    search.value = "";
   }
 };
 
-const handleFilterChange = ({ filter, value }: { filter: 'stock' | 'az'; value: boolean }) => {
+const handleFilterChange = ({
+  filter,
+  value,
+}: {
+  filter: "stock" | "az";
+  value: boolean;
+}) => {
   sortFilters.value[filter] = value;
 };
 </script>
 
 <template>
-  <div class="min-h-screen bg-secondary-200 z-10 p-10 space-y-4">    
+  <div class="min-h-screen bg-secondary-200 z-10 p-10 space-y-4">
     <section class="flex items-center justify-between gap-2">
       <h2 class="text-3xl font-black text-black">Productos</h2>
 
       <button
-        class="bg-primary-900 py-2 px-4 rounded-md text-white flex justify-center items-center gap-2 md:min-w-52 hover:bg-primary-1000"
+        class="bg-primary-900 py-2 px-4 rounded-md text-white flex justify-center items-center gap-2 md:min-w-52 hover:bg-primary-3000"
         @click="$emit('close')"
       >
         Ver carrito
@@ -97,7 +106,9 @@ const handleFilterChange = ({ filter, value }: { filter: 'stock' | 'az'; value: 
     <section class="space-y-2">
       <div class="flex items-center gap-2">
         <div class="relative flex-1">
-          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+          <div
+            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+          >
             <SearchIcon class="size-5" />
           </div>
           <input
@@ -111,7 +122,7 @@ const handleFilterChange = ({ filter, value }: { filter: 'stock' | 'az'; value: 
         </div>
         <FilterDropdown @filter-change="handleFilterChange" />
       </div>
-      
+
       <div v-if="!$productStore.isLoading">
         <ProductItem
           v-for="(product, index) in filterProducts"

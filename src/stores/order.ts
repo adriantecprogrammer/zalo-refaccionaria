@@ -10,7 +10,7 @@ export const useOrderStore = defineStore("order", () => {
 
   async function registerOrder(
     userId: number,
-    userPin:string,
+    userPin: string,
     total: number,
     status: string = "pendiente",
     paymentMethod: string,
@@ -19,7 +19,7 @@ export const useOrderStore = defineStore("order", () => {
     physicalAmount: number,
     electronicAmount: number,
     commission: number,
-    cartItems: CartItem[]
+    cartItems: CartItem[],
   ) {
     isLoading.value = true;
 
@@ -65,8 +65,6 @@ export const useOrderStore = defineStore("order", () => {
     }
   }
 
-
-
   async function getAllOrders(): Promise<Order[]> {
     try {
       const response = await apiClient.get("/orders");
@@ -76,10 +74,9 @@ export const useOrderStore = defineStore("order", () => {
       return [];
     }
   }
-  
 
   async function getOrderDetail(
-    id: number | undefined
+    id: number | undefined,
   ): Promise<OrderDetail[]> {
     try {
       if (id === undefined) {

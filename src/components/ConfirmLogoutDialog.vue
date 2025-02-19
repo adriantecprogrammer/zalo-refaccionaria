@@ -8,7 +8,9 @@
   >
     <div class="relative p-4 w-full max-w-md max-h-full">
       <div class="relative bg-white rounded-lg shadow">
-        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+        <div
+          class="flex items-center justify-between p-4 md:p-5 border-b rounded-t"
+        >
           <h3 class="text-xl font-semibold text-gray-900">
             Confirmación de Cierre de Sesión
           </h3>
@@ -40,7 +42,9 @@
             ¿Estás seguro de que deseas cerrar sesión?
           </p>
         </div>
-        <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
+        <div
+          class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b"
+        >
           <button
             @click="confirm"
             type="button"
@@ -66,8 +70,8 @@ defineProps({
   visible: Boolean,
 });
 
-const emit = defineEmits(['close', 'confirm']);
+const emit = defineEmits(["close", "confirm"]);
 
-const cancel = () => emit('close');
-const confirm = () => emit('confirm');
+const cancel = () => emit("close");
+const confirm = () => emit("confirm");
 </script>

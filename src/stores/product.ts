@@ -1,13 +1,13 @@
-import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
-import apiClient from '@/api/apiClient';
-import type { Product } from '@/types';
-import { useCartStore } from '@/stores/cart';
-import { useNotificationStore } from '@/stores/notification';
+import { defineStore } from "pinia";
+import { ref, computed } from "vue";
+import apiClient from "@/api/apiClient";
+import type { Product } from "@/types";
+import { useCartStore } from "@/stores/cart";
+import { useNotificationStore } from "@/stores/notification";
 
-export const useProductStore = defineStore('productStore', () => {
+export const useProductStore = defineStore("productStore", () => {
   const products = ref<Product[]>([]);
-  const searchQuery = ref<string>('');
+  const searchQuery = ref<string>("");
   const isLoading = ref<boolean>(false);
 
   const cartStore = useCartStore();
@@ -16,7 +16,7 @@ export const useProductStore = defineStore('productStore', () => {
   const getAllProducts = async () => {
     isLoading.value = true;
     try {
-      const response = await apiClient.get('/products');
+      const response = await apiClient.get("/products");
       products.value = response.data.map((product: any) => ({
         ...product,
         cantidadAMano: parseFloat(product.cantidadAMano),
@@ -24,7 +24,7 @@ export const useProductStore = defineStore('productStore', () => {
         precioVenta: parseFloat(product.precioVenta),
       }));
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error("Error fetching products:", error);
       throw error;
     } finally {
       isLoading.value = false;
@@ -34,8 +34,10 @@ export const useProductStore = defineStore('productStore', () => {
   const searchProductsByName = async (name: string): Promise<boolean> => {
     isLoading.value = true;
     try {
-      const formattedName = name.replace(/ /g, '+');
-      const response = await apiClient.get(`/products/search?name=${formattedName}`);
+      const formattedName = name.replace(/ /g, "+");
+      const response = await apiClient.get(
+        `/products/search?name=${formattedName}`,
+      );
 
       products.value = response.data.map((product: any) => ({
         ...product,
@@ -45,13 +47,19 @@ export const useProductStore = defineStore('productStore', () => {
       }));
 
       if (products.value.length === 0) {
-        notificationStore.showNotification('No hay productos con un nombre similar a ese', 'error');
+        notificationStore.showNotification(
+          "No hay productos con un nombre similar a ese",
+          "error",
+        );
         return false;
       }
       return true;
     } catch (error) {
-      console.error('Error searching products by name:', error);
-      notificationStore.showNotification('Error al buscar productos por nombre', 'error');
+      console.error("Error searching products by name:", error);
+      notificationStore.showNotification(
+        "Error al buscar productos por nombre",
+        "error",
+      );
       return false;
     } finally {
       isLoading.value = false;
@@ -61,24 +69,38 @@ export const useProductStore = defineStore('productStore', () => {
   const searchProductByBarcode = async (barcode: string): Promise<boolean> => {
     isLoading.value = true;
     try {
-      const response = await apiClient.get(`/products/search?barcode=${barcode}`);
+      const response = await apiClient.get(
+        `/products/search?barcode=${barcode}`,
+      );
       if (response.data.length === 1) {
         const product = response.data[0];
         if (product.stockQuantity > 0) {
           cartStore.addToCart(product);
-          notificationStore.showNotification('Producto agregado al carrito con éxito', 'success');
+          notificationStore.showNotification(
+            "Producto agregado al carrito con éxito",
+            "success",
+          );
           return true;
         } else {
-          notificationStore.showNotification('No hay stock suficiente', 'error');
+          notificationStore.showNotification(
+            "No hay stock suficiente",
+            "error",
+          );
           return false;
         }
       } else {
-        notificationStore.showNotification('No existe un producto con ese código de barras', 'error');
+        notificationStore.showNotification(
+          "No existe un producto con ese código de barras",
+          "error",
+        );
         return false;
       }
     } catch (error) {
-      console.error('Error searching product by barcode:', error);
-      notificationStore.showNotification('Error al buscar el producto', 'error');
+      console.error("Error searching product by barcode:", error);
+      notificationStore.showNotification(
+        "Error al buscar el producto",
+        "error",
+      );
       return false;
     } finally {
       isLoading.value = false;
@@ -91,19 +113,25 @@ export const useProductStore = defineStore('productStore', () => {
       const product = filteredProducts[0];
       if (product.stockQuantity > 0) {
         cartStore.addToCart(product);
-        notificationStore.showNotification('Producto agregado al carrito con éxito', 'success');
+        notificationStore.showNotification(
+          "Producto agregado al carrito con éxito",
+          "success",
+        );
         return true; // Indica que se agregó el producto
       } else {
-        notificationStore.showNotification('No hay stock suficiente', 'error');
+        notificationStore.showNotification("No hay stock suficiente", "error");
         return false; // Indica que no se agregó el producto
       }
     }
   };
 
   const filterProducts = computed(() => {
-    return products.value.filter((product) =>
-      product.barcode.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      product.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    return products.value.filter(
+      (product) =>
+        product.barcode
+          .toLowerCase()
+          .includes(searchQuery.value.toLowerCase()) ||
+        product.name.toLowerCase().includes(searchQuery.value.toLowerCase()),
     );
   });
 

@@ -1,2 +1,2 @@
-export * from './useCurrecy'
-export * from './useDate'
+export * from "./useCurrecy";
+export * from "./useDate";

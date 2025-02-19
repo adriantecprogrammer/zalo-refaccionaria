@@ -1,24 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { defineProps, defineEmits } from 'vue';
+import { ref } from "vue";
+import { defineProps, defineEmits } from "vue";
 
 defineProps({
   visible: Boolean,
 });
 
-const emit = defineEmits(['close', 'confirm']);
+const emit = defineEmits(["close", "confirm"]);
 
 const cashAmount = ref<number | null>(null);
 
 const closeModal = () => {
-  emit('close');
+  emit("close");
 };
 
 const confirmCashAmount = () => {
-  emit('confirm', cashAmount.value);
+  emit("confirm", cashAmount.value);
 };
 </script>
-
 
 <template>
   <div
@@ -31,7 +30,9 @@ const confirmCashAmount = () => {
       <div class="relative bg-white rounded-lg shadow">
         <!-- Modal header -->
         <div class="flex items-center justify-between p-4 border-b rounded-t">
-          <h3 class="text-lg font-semibold text-gray-900">Nuevo corte de caja</h3>
+          <h3 class="text-lg font-semibold text-gray-900">
+            Nuevo corte de caja
+          </h3>
           <button
             type="button"
             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-red-600 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
@@ -54,23 +55,27 @@ const confirmCashAmount = () => {
             </svg>
             <span class="sr-only">Close modal</span>
           </button>
-          
         </div>
         <!-- Modal body -->
-    
 
         <div class="flex flex-row items-center p-4 space-x-4">
-          <label for="cashAmount" class="text-nowrap block text-sm font-medium text-gray-700">Efectivo: $</label>
+          <label
+            for="cashAmount"
+            class="text-nowrap block text-sm font-medium text-gray-700"
+            >Efectivo: $</label
+          >
           <input
             type="number"
             id="cashAmount"
             v-model="cashAmount"
-            class=" w-full border rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500"
+            class="w-full border rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500"
             placeholder="Efectivo en caja"
           />
         </div>
         <!-- Modal footer -->
-        <div class="flex justify-center items-center p-4 border-t border-gray-200 rounded-b">
+        <div
+          class="flex justify-center items-center p-4 border-t border-gray-200 rounded-b"
+        >
           <button
             @click="confirmCashAmount"
             type="button"

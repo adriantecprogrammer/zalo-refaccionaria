@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue';
-import { useCurrencyInput } from 'vue-currency-input';
+import { computed, watch } from "vue";
+import { useCurrencyInput } from "vue-currency-input";
 
 /**
  * ------------------------------------------
@@ -16,9 +16,9 @@ interface CurrencyInputProps {
 }
 
 interface Emit {
-  (e: 'update:modelValue', value: number): void;
-  (e: 'change', value: number): void;
-  (e: 'blur', event: Event): void;
+  (e: "update:modelValue", value: number): void;
+  (e: "change", value: number): void;
+  (e: "blur", event: Event): void;
 }
 
 const $props = withDefaults(defineProps<CurrencyInputProps>(), {
@@ -26,7 +26,9 @@ const $props = withDefaults(defineProps<CurrencyInputProps>(), {
   readonly: false, // Default value for readonly
 });
 
-const { inputRef, setValue, setOptions } = useCurrencyInput({ currency: 'MXN' });
+const { inputRef, setValue, setOptions } = useCurrencyInput({
+  currency: "MXN",
+});
 const $emit = defineEmits<Emit>();
 
 /**
@@ -35,7 +37,7 @@ const $emit = defineEmits<Emit>();
  * ------------------------------------------
  */
 const displayValue = computed(() => {
-  return typeof $props.modelValue === 'number'
+  return typeof $props.modelValue === "number"
     ? $props.modelValue.toString()
     : $props.modelValue;
 });
@@ -49,13 +51,11 @@ const displayValue = computed(() => {
 watch(
   () => $props.modelValue,
   (value) => {
-
-    console.log('valueSet', value);
+    console.log("valueSet", value);
     setValue(value);
-    setOptions({ currency: 'MXN', precision: 2 });
-  }
+    setOptions({ currency: "MXN", precision: 2 });
+  },
 );
-
 
 /**
  * ------------------------------------------
@@ -70,10 +70,10 @@ watch(
 const updateValue = (event: Event) => {
   const target = event.target as HTMLInputElement;
   const value = target.value;
-  const finalValue = value === '' ? 0 : parseFloat(value);
+  const finalValue = value === "" ? 0 : parseFloat(value);
 
-  $emit('update:modelValue', finalValue);
-  $emit('change', finalValue);
+  $emit("update:modelValue", finalValue);
+  $emit("change", finalValue);
 };
 
 /**
@@ -81,13 +81,12 @@ const updateValue = (event: Event) => {
  * @param event
  */
 const handleBlur = (event: Event) => {
-  $emit('blur', event);
+  $emit("blur", event);
 };
 </script>
 
 <template>
   <input
-    
     :id="id"
     :placeholder="placeholder"
     :readonly="readonly"

@@ -4,12 +4,14 @@
  * @returns
  */
 export function toCurrency(val?: number) {
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
-  })
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
 
-  return isNaN(Number(val)) ? formatter.format(0) : formatter.format(Number(val))
+  return isNaN(Number(val))
+    ? formatter.format(0)
+    : formatter.format(Number(val));
 }
 
 /**
@@ -18,7 +20,7 @@ export function toCurrency(val?: number) {
  * @returns
  */
 export function fromCurrency(val?: string): number {
-  const cleanString = val?.replace(/[^\d.]/g, '') || '0'
-  const parsedNumber = parseFloat(cleanString)
-  return isNaN(parsedNumber) ? 0 : parsedNumber
+  const cleanString = val?.replace(/[^\d.]/g, "") || "0";
+  const parsedNumber = parseFloat(cleanString);
+  return isNaN(parsedNumber) ? 0 : parsedNumber;
 }
