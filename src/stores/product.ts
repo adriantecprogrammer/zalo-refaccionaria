@@ -27,6 +27,7 @@ export const useProductStore = defineStore("productStore", () => {
       console.error("Error fetching products:", error);
       throw error;
     } finally {
+      console.log(products.value);
       isLoading.value = false;
     }
   };
